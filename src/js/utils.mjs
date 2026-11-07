@@ -21,3 +21,17 @@ export function setClick(selector, callback) {
   });
   qs(selector).addEventListener("click", callback);
 }
+
+
+// Retrieves value of the named parameter when requested
+// and exports it for other JavaScript files to use.
+export function getParam(param) {
+  // window.location.search gets everything after the ? in the URL.
+  const queryString = window.location.search;
+
+  // urlParams.get(param) retrieves the value of the parameter you request.
+  const urlParams = new URLSearchParams(queryString);
+  
+  // Returns the values
+  return urlParams.get(param)
+}
