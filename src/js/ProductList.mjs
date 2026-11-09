@@ -1,3 +1,7 @@
+// Import the shared function that renders a list using a template.
+import { renderListWithTemplate } from "./utils.mjs";
+
+
 // Builds the HTML for one product card from a product object.
 // Each ${...} placeholder is filled with a field from tents.json.
 function productCardTemplate(product) {
@@ -46,9 +50,7 @@ export default class ProductList {
 
     // Turns an array of products into HTML cards and adds them to the page.
     renderList(list) {
-        // Convert each product object into an HTML string.
-        const htmlStrings = list.map(productCardTemplate);
-        // Join the strings into one block and insert it at the start of the list element.
-        this.listElement.insertAdjacentHTML("afterbegin", htmlStrings.join(""));
+        // Use the shared utility to render the product cards.
+        renderListWithTemplate(productCardTemplate, this.listElement, list);
     }
 }
