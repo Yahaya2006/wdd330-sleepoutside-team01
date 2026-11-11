@@ -1,9 +1,18 @@
+
 import { renderListWithTemplate } from "./utils.mjs";
 
 function productCardTemplate(product) {
+  const isDiscounted =
+    Number(product.FinalPrice) < Number(product.SuggestedRetailPrice);
+
   return `
     <li class="product-card">
       <a href="/product_pages/?product=${product.Id}">
+        ${
+          isDiscounted
+            ? '<span class="discount-badge">SALE</span>'
+            : ""
+        }
         <img
           src="${product.Image}"
           alt="${product.Name}"
@@ -38,4 +47,3 @@ export default class ProductList {
     );
   }
 }
-

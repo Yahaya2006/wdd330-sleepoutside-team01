@@ -261,3 +261,16 @@ footer {
   font-size: var(--small-font);
   padding: 1em;
 }
+
+
+.discount-badge {
+  display: inline-block;
+  background-color: #d62828;
+  color: #ffffff;
+  font-size: 0.75rem;
+  font-weight: bold;
+  padding: 5px 10px;
+  border-radius: 4px;
+  margin: 8px;
+  letter-spacing: 0.5px;
+}
