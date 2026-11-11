@@ -150,6 +150,10 @@ button {
   width: 50%;
   text-align: center;
 }
+.breadcrumb{
+  font-size:14px; 
+  padding:10px;
+}
 
 .products {
   margin-top: 2rem;
