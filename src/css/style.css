@@ -241,6 +241,19 @@ button {
   grid-column: 3;
 }
 
+/* Cart total shown below the list of cart items. */
+.cart-footer {
+  margin: 1rem 0;
+  padding: 1rem;
+  text-align: right;
+}
+
+.cart-total {
+  margin: 0;
+  font-size: 1.25rem;
+  font-weight: bold;
+}
+
 @media screen and (min-width: 500px) {
   body {
     max-width: 1080px;

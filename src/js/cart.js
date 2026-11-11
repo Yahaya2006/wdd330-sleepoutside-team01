@@ -12,8 +12,10 @@ function renderCartContents() {
 
   // Insert all the item HTML into the product list on the cart page.
   document.querySelector(".product-list").innerHTML = htmlItems.join("");
-}
 
+  // Show the total below the list (only when the cart has items).
+  renderCartTotal(cartItems);
+}
 
 // Builds the HTML for a single cart item from its product data.
 function cartItemTemplate(item) {
@@ -34,6 +36,38 @@ function cartItemTemplate(item) {
 </li>`;
 
   return newItem;
+}
+
+// Adds up the price of every item, multiplied by its quantity.
+function calculateTotal(cartItems) {
+  return cartItems.reduce(
+    (sum, item) => sum + item.FinalPrice * (item.Quantity || 1),
+    0,
+  );
+}
+
+// Shows the cart total on the page, but only if the cart has items.
+function renderCartTotal(cartItems) {
+  const container = document.querySelector("#cart-total-container");
+
+  // Clear any total that was shown before.
+  container.innerHTML = "";
+
+  // Empty cart: show nothing.
+  if (cartItems.length === 0) {
+    return;
+  }
+
+  // Copy the template's content so the original stays unchanged.
+  const template = document.querySelector("#cart-total-template");
+  const clone = template.content.cloneNode(true);
+
+  // Fill in the total, formatted with two decimal places.
+  clone.querySelector(".cart-total__amount").textContent =
+    calculateTotal(cartItems).toFixed(2);
+
+  // Add the filled-in copy to the page.
+  container.appendChild(clone);
 }
 
 renderCartContents();
