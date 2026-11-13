@@ -1,6 +1,9 @@
-import { getParam } from "./utils.mjs";
+import { getParam, loadHeaderFooter } from "./utils.mjs";
 import ProductData from "./ProductData.mjs";
 import ProductDetails from "./ProductDetails.mjs";
+
+// Load the shared header and footer.
+loadHeaderFooter();
 
 // Create a data source for the tent category
 const dataSource = new ProductData("tents");
