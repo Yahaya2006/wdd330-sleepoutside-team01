@@ -5,6 +5,18 @@ import { renderListWithTemplate } from "./utils.mjs";
 // Builds the HTML for one product card from a product object.
 // Each ${...} placeholder is filled with a field from tents.json.
 function productCardTemplate(product) {
+  const isDiscounted = product.FinalPrice < product.SuggestedRetailPrice;
+  const discountPercent = isDiscounted
+    ? Math.round(
+        ((product.SuggestedRetailPrice - product.FinalPrice) /
+          product.SuggestedRetailPrice) *
+          100,
+      )
+    : 0;
+  const discountMarkup = isDiscounted
+    ? `<p class="product-card__discount"><span class="product-card__original-price">$${product.SuggestedRetailPrice.toFixed(2)}</span> <span class="product-card__badge">-${discountPercent}%</span></p>`
+    : "";
+
   return `<li class="product-card">
     <a href="product_pages/?product=${product.Id}">
       <img
@@ -14,6 +26,7 @@ function productCardTemplate(product) {
       <h3 class="card__brand">${product.Brand.Name}</h3>
       <h2 class="card__name">${product.NameWithoutBrand}</h2>
       <p class="product-card__price">$${product.FinalPrice}</p>
+      ${discountMarkup}
     </a>
   </li>`;
 }
