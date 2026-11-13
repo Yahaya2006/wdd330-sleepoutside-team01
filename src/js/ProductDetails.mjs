@@ -56,11 +56,28 @@ export default class ProductDetails {
     // Dynamically displays the selected product's details by 
     // inserting its information into the product-detail section.
     renderProductDetails() {
+    const isDiscounted =
+      this.product.FinalPrice < this.product.SuggestedRetailPrice;
+    const discountAmount = (
+      this.product.SuggestedRetailPrice - this.product.FinalPrice
+    ).toFixed(2);
+    const discountPercent = isDiscounted
+      ? Math.round(
+          ((this.product.SuggestedRetailPrice - this.product.FinalPrice) /
+            this.product.SuggestedRetailPrice) *
+            100,
+        )
+      : 0;
+    const discountMarkup = isDiscounted
+      ? `<p class="product-card__discount"><span class="product-card__original-price">$${this.product.SuggestedRetailPrice.toFixed(2)}</span> <span class="product-card__badge">Save $${discountAmount} (${discountPercent}% OFF)</span></p>`
+      : "";
+
     document.querySelector(".product-detail").innerHTML = `
         <h3>${this.product.Brand.Name}</h3>
         <h2 class="divider">${this.product.NameWithoutBrand}</h2>
         <img class="divider" src="${this.product.Image}" alt="${this.product.NameWithoutBrand}">
         <p class="product-card__price">$${this.product.FinalPrice}</p>
+        ${discountMarkup}
         <p class="product__color">${this.product.Colors[0].ColorName}</p>
         <p class="product__description">${this.product.DescriptionHtmlSimple}</p>
         <div class="product-detail__add">
