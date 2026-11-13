@@ -1,3 +1,4 @@
+  // Prevents an error when the cart is not yet stored in localStorage.
 import { getLocalStorage } from "./utils.mjs";
 
 function renderCartContents() {
