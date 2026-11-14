@@ -51,6 +51,7 @@ export default class ProductDetails {
     
       // Saves the updated array
       setLocalStorage("so-cart", cart);
+      window.dispatchEvent(new Event("cartUpdated"));
     }
 
     // Dynamically displays the selected product's details by 
