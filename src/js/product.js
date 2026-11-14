@@ -6,11 +6,10 @@ import { loadHeaderFooter } from "./utils.mjs";
 // Load the header and footer
 loadHeaderFooter();
 
-// Create a data source for the tent category
-const dataSource = new ProductData("tents");
-
 // Get the product ID from the URL parameter.
 const productId = getParam("product");
+const category = getParam("category") ?? "tents";
+const dataSource = new ProductData(category);
 
 // Creates a ProductDetails instance.
 const product = new ProductDetails(productId, dataSource);
