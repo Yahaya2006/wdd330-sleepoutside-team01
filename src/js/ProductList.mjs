@@ -3,14 +3,10 @@ import { renderListWithTemplate } from "./utils.mjs";
 
 
 // Builds the HTML for one product card from a product object.
-// Each ${...} placeholder is filled with a field from tents.json.
-function productCardTemplate(product) {
+function productCardTemplate(product, category) {
   return `<li class="product-card">
-    <a href="product_pages/?product=${product.Id}">
-      <img
-        src="${product.Image}"
-        alt="${product.Name}"
-      />
+    <a href="../product_pages/?product=${product.Id}&category=${encodeURIComponent(category)}">
+      <img src="${product.Images.PrimaryMedium}" alt="${product.Name}" />
       <h3 class="card__brand">${product.Brand.Name}</h3>
       <h2 class="card__name">${product.NameWithoutBrand}</h2>
       <p class="product-card__price">$${product.FinalPrice}</p>
@@ -18,9 +14,6 @@ function productCardTemplate(product) {
   </li>`;
 }
 
-// Products that have an image file in public/images/tents.
-// The JSON also lists 989CG and 880RT, but their images don't exist in the starter repo.
-const availableIds = ["880RR", "985RF", "985PR", "344YJ"];
 
 
 // Creates a list of product cards for one category (e.g. "tents").
@@ -38,19 +31,18 @@ export default class ProductList {
     // Gets the product data, then displays it.
     async init() {
 
-        // Wait for the data source to return the  fill list of products.
-        const list = await this.dataSource.getData();
-        // Keep only the products that have an image available.
-        const availableProducts = list.filter((product) =>
-            availableIds.includes(product.Id),
-        );
-        // Render only the available products on the page.
-        this.renderList(availableProducts);
+        // Wait for the selected category's products.
+        const list = await this.dataSource.getData(this.category);
+        this.renderList(list);
     }
 
     // Turns an array of products into HTML cards and adds them to the page.
     renderList(list) {
         // Use the shared utility to render the product cards.
-        renderListWithTemplate(productCardTemplate, this.listElement, list);
+        renderListWithTemplate(
+            (product) => productCardTemplate(product, this.category),
+            this.listElement,
+            list,
+        );
     }
 }
