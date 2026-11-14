@@ -1,42 +1,12 @@
-// Import the helper that reads data from the browser's localStorage.
-import { getLocalStorage } from "./utils.mjs";
+import ShoppingCart from "./ShoppingCart.mjs";
+import { loadHeaderFooter } from "./utils.mjs";
 
-// Reads the cart from localStorage and displays every item on the page.
-function renderCartContents() {
-  // Get the saved cart. If nothing is stored yet (empty cart),
-  // use an empty array so .map() doesn't crash.
-  const cartItems = getLocalStorage("so-cart") ?? [];
+const listElement = document.querySelector(".product-list");
+const shoppingCart = new ShoppingCart(listElement);
+const itemsInCart = shoppingCart.init();
 
-  // Turn each cart item into an HTML string using the template below.
-  const htmlItems = cartItems.map((item) => cartItemTemplate(item));
-
-  // Insert all the item HTML into the product list on the cart page.
-  document.querySelector(".product-list").innerHTML = htmlItems.join("");
-
-  // Show the total below the list (only when the cart has items).
-  renderCartTotal(cartItems);
-}
-
-// Builds the HTML for a single cart item from its product data.
-function cartItemTemplate(item) {
-  const newItem = `<li class="cart-card divider">
-  <a href="#" class="cart-card__image">
-    <img
-      src="${item.Image}"
-      alt="${item.Name}"
-    />
-  </a>
-  <a href="#">
-    <h2 class="card__name">${item.Name}</h2>
-  </a>
-  <p class="cart-card__color">${item.Colors[0].ColorName}</p>
-  <!-- Show the saved quantity, or 1 if no quantity was stored -->
-  <p class="cart-card__quantity">qty: ${item.Quantity || 1}</p>
-  <p class="cart-card__price">$${item.FinalPrice}</p>
-</li>`;
-
-  return newItem;
-}
+renderCartTotal(itemsInCart);
+loadHeaderFooter();
 
 // Adds up the price of every item, multiplied by its quantity.
 function calculateTotal(cartItems) {
@@ -69,5 +39,3 @@ function renderCartTotal(cartItems) {
   // Add the filled-in copy to the page.
   container.appendChild(clone);
 }
-
-renderCartContents();

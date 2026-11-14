@@ -2,7 +2,8 @@
 import ProductData from "./ProductData.mjs";
 // Import the class that builds the list of product cards.
 import ProductList from "./ProductList.mjs";
-
+// Import the helper that loads the header and footer.
+import { loadHeaderFooter } from "./utils.mjs";
 
 // Create a data source for the "tents" category (reads tents.json).
 const dataSource = new ProductData("tents");
@@ -13,3 +14,6 @@ const listElement = document.querySelector(".product-list");
 // Create the product list for tents and display it.
 const productList = new ProductList("tents", dataSource, listElement);
 productList.init();
+
+//load the header and footer
+loadHeaderFooter();
