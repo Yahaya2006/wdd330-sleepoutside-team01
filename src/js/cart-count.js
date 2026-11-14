@@ -1,4 +1,4 @@
-// Keeps the header cart badge and its accessible label in sync with saved cart quantities.
+//Add a superscript number of items in the cart to the backpack icon.
 import { getLocalStorage } from "./utils.mjs";
 
 function updateCartCount() {
