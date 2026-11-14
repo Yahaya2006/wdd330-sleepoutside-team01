@@ -55,4 +55,47 @@ export function renderListWithTemplate(
     // Join the strings into one block and insert it at the start of the list element.
     parentElement.insertAdjacentHTML(position, htmlStrings.join(""));
 }
-  
+ 
+
+// Renders ONE template (a string of HTML) into a parent element.
+// data:     optional info passed along to the callback
+// callback: optional function that runs after the template is rendered
+export function renderWithTemplate(
+  template,
+  parentElement,
+  data,
+  callback
+) {
+    
+  // Put the template inside tha parent element
+  parentElement.innerHTML = template;
+
+  // Only run the callback if one was passed in
+  if (callback) {
+    callback(data);
+  }
+}
+
+// Fetches an HTML file from a path and return its contents as a string.
+export const loadTemplate = async (path) => {
+  const response = await fetch(path);
+  const template = await response.text();
+  return template;
+};
+
+
+// Loads the header and footer partials and renders them on the page.
+export const loadHeaderFooter = async () => {
+  //1. load the template from the partials folder
+  const headerTemplate = await loadTemplate("/partials/header.html");
+  const footerTemplate = await loadTemplate("/partials/footer.html");
+
+  //2. Grab the placeholder elements form the page
+  const headerElement = qs("#main-header");
+  const footerElement = qs("#main-footer");
+
+  //3. Render the templates into the placeholders
+  renderWithTemplate(headerTemplate, headerElement);
+  renderWithTemplate(footerTemplate, footerElement);
+
+};
