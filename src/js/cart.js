@@ -1,5 +1,5 @@
 // Import the helper that reads data from the browser's localStorage.
-import { getLocalStorage } from "./utils.mjs";
+import { getLocalStorage, loadHeaderFooter } from "./utils.mjs";
 
 // Reads the cart from localStorage and displays every item on the page.
 function renderCartContents() {
@@ -71,3 +71,4 @@ function renderCartTotal(cartItems) {
 }
 
 renderCartContents();
+loadHeaderFooter();
