@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="/css/style.css" />
 
     <script src="../js/cart.js" type="module"></script>
+    <script src="../js/cart-count.js" type="module"></script>
   </head>
 
   <body>
@@ -31,7 +32,9 @@
         <!-- Template: not displayed. JavaScript copies it when there is something to total. -->
         <template id="cart-total-template">
           <div class="cart-footer">
-            <p class="cart-total">Total: $<span class="cart-total__amount"></span></p>
+            <p class="cart-total">
+              Total: $<span class="cart-total__amount"></span>
+            </p>
           </div>
         </template>
       </section>

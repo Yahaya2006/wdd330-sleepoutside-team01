@@ -4,7 +4,6 @@ import ProductData from "./ProductData.mjs";
 import ProductList from "./ProductList.mjs";
 import { loadHeaderFooter } from "./utils.mjs";
 
-
 // Create a data source for the "tents" category (reads tents.json).
 const dataSource = new ProductData("tents");
 
