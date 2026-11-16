@@ -14,20 +14,23 @@ export default class ProductDetails {
     // Initializes the product details by retrieving the selected product, 
     // displaying it, and setting up the Add to Cart button.
     async init() {
-        // Retrieves the selected product using its ID and stores its details.
-        this.product = await this.dataSource.findProductById(this.productId);
+      // Retrieves the selected product using its ID and stores its details.
+      this.product = await this.dataSource.findProductById(this.productId);
 
-        // Displays the selected product details.
-        this.renderProductDetails();
+      // Displays the selected product details.
+      this.renderProductDetails();
+      
+      // NEW: displays the breadcrumb trail for this product.
+      this.renderBreadcrumb();
 
 
-        // Adds an event listener to the Add to Cart button.
-        document
-            .getElementById("addToCart")
-            .addEventListener("click", () => {
-                console.log("Add to Cart clicked");
-                this.addProductToCart(this.product);
-            });
+      // Adds an event listener to the Add to Cart button.
+      document
+          .getElementById("addToCart")
+          .addEventListener("click", () => {
+              console.log("Add to Cart clicked");
+              this.addProductToCart(this.product);
+          });
     }
 
     addProductToCart(product) {
@@ -68,6 +71,20 @@ export default class ProductDetails {
             <button id="addToCart" data-id="${this.product.Id}">Add to Cart</button>
         </div>
     `;
-    }
+  }
+  
+  // NEW: builds the breadcrumb trail: Home > Tents > Product Name
+    renderBreadcrumb() {
+        // Find the empty <nav> placeholder on the page
+        const breadcrumb = document.querySelector("#breadcrumb");
 
+        // Fill it with links and the current product's name.
+        // "&gt;" is the safe way to write ">" in HTML.
+        breadcrumb.innerHTML = `
+            <a href="/index.html">Home</a> &gt;
+            <a href="/index.html">Tents</a> &gt;
+            <span>${this.product.NameWithoutBrand}</span>
+        `;
+  }
+    
 }
