@@ -85,7 +85,7 @@ export const loadTemplate = async (path) => {
 
 
 // Loads the header and footer partials and renders them on the page.
-export const loadHeaderFooter = async () => {
+export const loadHeaderFooter = async (headerCallback) => {
   //1. load the template from the partials folder
   const headerTemplate = await loadTemplate("/partials/header.html");
   const footerTemplate = await loadTemplate("/partials/footer.html");
@@ -95,7 +95,8 @@ export const loadHeaderFooter = async () => {
   const footerElement = qs("#main-footer");
 
   //3. Render the templates into the placeholders
-  renderWithTemplate(headerTemplate, headerElement);
+  // The callback runs after the header exists, so the badge can be found.
+  renderWithTemplate(headerTemplate, headerElement, null, headerCallback);
   renderWithTemplate(footerTemplate, footerElement);
 
 };

@@ -3,6 +3,8 @@ import ProductData from "./ProductData.mjs";
 // Import the class that builds the list of product cards.
 import ProductList from "./ProductList.mjs";
 import { loadHeaderFooter } from "./utils.mjs";
+// Import the badge updater so it can run once the header is on the page.
+import { updateCartCount } from "./cart-count.js";
 
 // Create a data source for the "tents" category (reads tents.json).
 const dataSource = new ProductData("tents");
@@ -14,4 +16,5 @@ const listElement = document.querySelector(".product-list");
 const productList = new ProductList("tents", dataSource, listElement);
 productList.init();
 
-loadHeaderFooter();
+// Load the header and footer, then update the cart badge.
+loadHeaderFooter(updateCartCount);
