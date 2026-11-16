@@ -1,7 +1,8 @@
 //Add a superscript number of items in the cart to the backpack icon.
 import { getLocalStorage } from "./utils.mjs";
 
-function updateCartCount() {
+// Exported so pages can run it after the header has loaded.
+export function updateCartCount() {
   const badge = document.querySelector("[data-cart-count]");
   const cartLink = document.querySelector(".cart a");
 
@@ -22,6 +23,6 @@ function updateCartCount() {
   );
 }
 
-updateCartCount();
+// Keep the badge in sync when the cart changes later.
 window.addEventListener("cartUpdated", updateCartCount);
 window.addEventListener("storage", updateCartCount);

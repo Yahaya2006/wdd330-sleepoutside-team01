@@ -1,6 +1,10 @@
 import { getParam } from "./utils.mjs";
 import ProductData from "./ProductData.mjs";
 import ProductDetails from "./ProductDetails.mjs";
+import { loadHeaderFooter } from "./utils.mjs";
+// Import the badge updater so it can run once the header is on the page.
+import { updateCartCount } from "./cart-count.js";
+
 
 // Create a data source for the tent category
 const dataSource = new ProductData("tents");
@@ -14,4 +18,6 @@ const product = new ProductDetails(productId, dataSource);
 // Initializes the product details page.
 product.init();
 
-// console.log("Product.js is running");
+
+// Load the header and footer, then update the cart badge.
+loadHeaderFooter(updateCartCount);
