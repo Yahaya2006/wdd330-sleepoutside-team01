@@ -271,6 +271,31 @@ button {
   grid-column: 3;
 }
 
+/* Four category cards in a responsive grid */
+.category-list {
+  list-style: none;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 1rem;
+}
+
+.category-list a {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  text-decoration: none;
+  color: inherit;
+}
+
+.category-list img {
+  width: 80px;
+  height: 80px;
+}
+
 @media screen and (min-width: 500px) {
   body {
     max-width: 1080px;
