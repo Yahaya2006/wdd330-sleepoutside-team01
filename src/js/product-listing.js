@@ -11,8 +11,24 @@ import ProductList from "./ProductList.mjs";
 // Load the header footer, then updated the cart badge.
 loadHeaderFooter(updateCartCount);
 
+// Turns a URL category like "sleeping-bags" into a readable name: "Sleeping Bags".
+function formatCategory(name) {
+    return name
+        .split("-")
+        .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+        .join(" ");        
+}
+
 // Read the category from the URL (e.g. ?category=backpacks).
 const category = getParam("category");
+
+// Show the category in the page heading. e.g. "Top Products Backpacks"
+// The "if" avoids an error when the URL has no ?category=value.
+if (category) {
+    document.querySelector("#listing-title").textContent =
+        `Top Products: ${formatCategory(category)}`;
+}
+
 
 // Create the data source (it talks to the API).
 const dataSource = new ProductData();
