@@ -63,7 +63,7 @@ export default class ProductDetails {
     document.querySelector(".product-detail").innerHTML = `
         <h3>${this.product.Brand.Name}</h3>
         <h2 class="divider">${this.product.NameWithoutBrand}</h2>
-        <img class="divider" src="${this.product.Image}" alt="${this.product.NameWithoutBrand}">
+        <img class="divider" src="${this.product.Images.PrimaryLarge}" alt="${this.product.NameWithoutBrand}">
         <p class="product-card__price">$${this.product.FinalPrice}</p>
         <p class="product__color">${this.product.Colors[0].ColorName}</p>
         <p class="product__description">${this.product.DescriptionHtmlSimple}</p>
@@ -75,16 +75,18 @@ export default class ProductDetails {
   
   // NEW: builds the breadcrumb trail: Home > Tents > Product Name
     renderBreadcrumb() {
-        // Find the empty <nav> placeholder on the page
-        const breadcrumb = document.querySelector("#breadcrumb");
+      // Find the empty <nav> placeholder on the page
+      const breadcrumb = document.querySelector("#breadcrumb");
 
-        // Fill it with links and the current product's name.
-        // "&gt;" is the safe way to write ">" in HTML.
-        breadcrumb.innerHTML = `
-            <a href="/index.html">Home</a> &gt;
-            <a href="/index.html">Tents</a> &gt;
-            <span>${this.product.NameWithoutBrand}</span>
-        `;
+      // The API gives each product its category e.g. "sleeping-bags".
+      const category = this.product.Category;
+
+      // Fill it with links and the current product's name.
+      breadcrumb.innerHTML = `
+          <a href="/index.html">Home</a> &gt;
+          <a href="/product_listing/index.html?category=${category}">${category}</a> &gt;
+          <span>${this.product.NameWithoutBrand}</span>
+      `;
   }
     
 }
