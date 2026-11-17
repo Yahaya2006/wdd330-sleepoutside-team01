@@ -28,12 +28,20 @@
     </header>
 
     <main class="divider">
-      <section class="products">
-        <h2 id="product-list-title">Top Products</h2>
-        <ul class="product-list"></ul>
-      </section>
-    </main>
+        <section class="products">
+            <h2 id="product-list-title">Top Products</h2>
+            <div class="sort-controls">
+              <label for="sort-products">Sort products by:</label>
+              <select id="sort-products">
+                <option value="default">Default order</option>
+                <option value="name-asc">Name: A to Z</option>
+                <option value="price-asc">Price: Low to High</option>
+                <option value="price-desc">Price: High to Low</option>
+              </select>
+            </div>
 
+            <ul class="product-list"></ul>
+        </section>
     <footer>
       &copy;2025 SleepOutside &copy; WDD 330 &copy; BYU-Idaho
     </footer>
