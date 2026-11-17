@@ -271,6 +271,36 @@ button {
   grid-column: 3;
 }
 
+/* Row that holds the - , number, and + */
+.cart-card__quantity {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  /* small space between the parts */
+}
+
+/* The small + and - buttons */
+.qty-btn {
+  width: 1.6rem;
+  height: 1.4rem;
+  padding: 0;
+  /* removes the default button padding that makes it big */
+  font-size: 1.1rem;
+  line-height: 1;
+  cursor: pointer;
+  border: 1px solid #999;
+  border-radius: 4px;
+  background: #fff;
+  color: #303030;
+}
+
+/* The quantity number between the buttons */
+.qty-value {
+  min-width: 1rem;
+  text-align: center;
+  font-size: 0.9rem;
+}
+
 @media screen and (min-width: 500px) {
   body {
     max-width: 1080px;

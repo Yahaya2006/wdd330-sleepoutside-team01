@@ -1,21 +1,29 @@
 // import the helpers this module needs form utils.mjs
-import { getLocalStorage, renderListWithTemplate } from "./utils.mjs";
+import {
+    getLocalStorage,
+    setLocalStorage,
+    renderListWithTemplate
+} from "./utils.mjs";
 
 // Builds the HTML for a single cart item from its product data.
 function cartItemTemplate(item) {
     return `<li class="cart-card divider">
-  <a href="#" class="cart-card__image">
-    <img
-      src="${item.Image}"
-      alt="${item.Name}"
-    />
-  </a>
-  <a href="#">
-    <h2 class="card__name">${item.Name}</h2>
-  </a>
-  <p class="cart-card__color">${item.Colors[0].ColorName}</p>
-  <!-- Show the saved quantity, or 1 if no quantity was stored -->
-  <p class="cart-card__quantity">qty: ${item.Quantity || 1}</p>
+    <a href="#" class="cart-card__image">
+        <img
+            src="${item.Image}"
+            alt="${item.Name}"
+        />
+    </a>
+    <a href="#">
+        <h2 class="card__name">${item.Name}</h2>
+    </a>
+    <p class="cart-card__color">${item.Colors[0].ColorName}</p>
+    <!-- Quantity controls: data-id tells us which product to change -->
+    <div class="cart-card__quantity">
+    <button class="qty-btn" data-action="decrease" data-id="${item.Id}" aria-label="Decrease quantity">&minus;</button>
+    <span class="qty-value">${item.Quantity || 1}</span>
+    <button class="qty-btn" data-action="increase" data-id="${item.Id}" aria-label="Increase quantity">+</button>
+  </div>
   <p class="cart-card__price">$${item.FinalPrice}</p>
 </li>`;
 
@@ -38,6 +46,12 @@ export default class ShoppingCart {
         const list = getLocalStorage(this.key) ?? [];
         this.renderList(list);
         this.renderTotal(list);
+
+        // One listener on the whole list
+        // It keeps working after the list is redrawn, so we only add it once.
+        this.listElement.addEventListener("click", (event) =>
+            this.handleQuantityClick(event),
+        );
     }
 
     // Turns an array of cart items into HTML and adds them to the page.
@@ -76,4 +90,44 @@ export default class ShoppingCart {
         // Add the filled-in copy to the page.
         this.totalElement.appendChild(clone);
     }
+
+    // Runs when anything in the list is clicked.
+    handleQuantityClick(event) {
+        // Did the click land on a + or - button? If not, ignore it.
+        const button = event.target.closest(".qty-btn");
+        if (!button) return;
+
+        // Reads which product and which direction form the button's data attributes.
+        const id = button.dataset.id;
+        const change = button.dataset.action === "increase" ? 1 : -1;
+
+        this.changeQuantity(id, change);
+    }
+
+
+    // Changes one item's quantity, saves the cart, and redraws the page.
+    changeQuantity(id, change) {
+        let cart = getLocalStorage(this.key) ?? [];
+
+        // Find the product that was clicked.
+        const item = cart.find((product) => product.Id === id);
+        if (!item) return;
+
+        // Apply the change 
+        item.Quantity = (item.Quantity || 1) + change;
+
+        // A quantity of 0 or less removes the item from the cart.
+        if (item.Quantity <= 0) {
+            cart = cart.filter((product) => product.Id !== id);
+        }
+
+        // Save, then redraw the list and the total.
+        setLocalStorage(this.key, cart);
+        this.renderList(cart);
+        this.renderTotal(cart);
+
+        // Tell the header badge to update its count.
+        window.dispatchEvent(new Event("cartUpdated"));
+    }
+    
 }
