@@ -6,7 +6,7 @@ import { renderListWithTemplate } from "./utils.mjs";
 // Each ${...} placeholder is filled with a field from tents.json.
 function productCardTemplate(product) {
   return `<li class="product-card">
-    <a href="product_pages/?product=${product.Id}">
+    <a href="/product_pages/?product=${product.Id}">
       <img
         src="${product.Image}"
         alt="${product.Name}"
