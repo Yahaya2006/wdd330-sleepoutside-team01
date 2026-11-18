@@ -241,6 +241,19 @@ button {
   grid-column: 3;
 }
 
+/* Cart total shown below the list of cart items. */
+.cart-footer {
+  margin: 1rem 0;
+  padding: 1rem;
+  text-align: right;
+}
+
+.cart-total {
+  margin: 0;
+  font-size: 1.25rem;
+  font-weight: bold;
+}
+
 @media screen and (min-width: 500px) {
   body {
     max-width: 1080px;
@@ -260,4 +273,107 @@ button {
 footer {
   font-size: var(--small-font);
   padding: 1em;
+}
+
+/* Newsletter sign-up form on the home page. */
+.newsletter {
+  margin: 2rem 0;
+  padding: 1rem;
+  text-align: center;
+}
+
+.newsletter__form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  max-width: 420px;
+  margin: 1rem auto 0;
+}
+
+.newsletter__form label {
+  font-weight: bold;
+  text-align: left;
+}
+
+.newsletter__form input {
+  padding: 0.5rem;
+  font-size: 1rem;
+}
+
+.newsletter__form button {
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.newsletter__confirmation {
+  margin-top: 1rem;
+  font-weight: bold;
+}
+
+@media screen and (min-width: 500px) {
+  .newsletter__form {
+    flex-direction: row;
+    align-items: flex-end;
+  }
+
+  .newsletter__form label {
+    flex: 0 0 auto;
+  }
+
+  .newsletter__form input {
+    flex: 1;
+  }
+}
+
+/* Category links on the home page. */
+.categories {
+  text-align: center;
+  margin: 2rem 0;
+}
+
+.category-list {
+  list-style: none;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+}
+
+.category-list a {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+  padding: 1rem;
+}
+
+.category-list img {
+  width: 100%;
+  max-width: 120px;
+  height: auto;
+}
+
+@media screen and (min-width: 700px) {
+  .category-list {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+/* Remove (X) button on each cart item. */
+.cart-card {
+  position: relative;
+}
+
+.cart-card__remove {
+  position: absolute;
+  top: 0.25rem;
+  right: 0.5rem;
+  cursor: pointer;
+  font-weight: bold;
+  color: #555;
+  padding: 0.25rem;
+}
+
+.cart-card__remove:hover {
+  color: #c00;
 }
