@@ -1,4 +1,9 @@
-import { getLocalStorage } from "./utils.mjs";
+import {
+  alertMessage,
+  getLocalStorage,
+  removeAllAlerts,
+  setLocalStorage,
+} from "./utils.mjs";
 import ExternalServices from "./ExternalServices.mjs";
 
 const services = new ExternalServices();
@@ -35,6 +40,7 @@ export default class CheckoutProcess {
   init() {
     this.list = getLocalStorage(this.key) || [];
     this.calculateItemSummary();
+    this.calculateOrderTotal();
   }
 
   calculateItemSummary() {
@@ -95,10 +101,19 @@ export default class CheckoutProcess {
     order.items = packageItems(this.list);
 
     try {
-      const response = await services.checkout(order);
-      console.log(response);
+      await services.checkout(order);
+      setLocalStorage(this.key, []);
+      window.dispatchEvent(new Event("cartUpdated"));
+      location.assign("/checkout/success.html");
     } catch (err) {
-      console.log(err);
+      removeAllAlerts();
+      if (err.message && typeof err.message === "object") {
+        for (let key in err.message) {
+          alertMessage(err.message[key]);
+        }
+      } else {
+        alertMessage(err.message || "Unable to place your order.");
+      }
     }
   }
 }
