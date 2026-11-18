@@ -1,4 +1,4 @@
-import { getLocalStorage, setLocalStorage } from "./utils.mjs";
+import { alertMessage, getLocalStorage, setLocalStorage } from "./utils.mjs";
 
 export default class ProductDetails {
     constructor(productId, dataSource) {
@@ -55,6 +55,7 @@ export default class ProductDetails {
       // Saves the updated array
       setLocalStorage("so-cart", cart);
       window.dispatchEvent(new Event("cartUpdated"));
+      alertMessage(`${this.product.NameWithoutBrand} added to cart!`);
     }
 
     // Dynamically displays the selected product's details by 

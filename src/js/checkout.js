@@ -1,7 +1,22 @@
 import { loadHeaderFooter } from "./utils.mjs";
-
-// Import the badge updater so it can run once the header is on the page.
 import { updateCartCount } from "./cart-count.js";
+import CheckoutProcess from "./CheckoutProcess.mjs";
 
-// Load the header and footer, then update the cart badge.
 loadHeaderFooter(updateCartCount);
+
+const order = new CheckoutProcess("so-cart", ".checkout-summary");
+order.init();
+
+document
+  .querySelector("#zip")
+  .addEventListener("blur", order.calculateOrderTotal.bind(order));
+
+document.querySelector("#checkoutSubmit").addEventListener("click", (e) => {
+  e.preventDefault();
+  const myForm = document.forms[0];
+  const chkStatus = myForm.checkValidity();
+  myForm.reportValidity();
+  if (chkStatus) {
+    order.checkout();
+  }
+});

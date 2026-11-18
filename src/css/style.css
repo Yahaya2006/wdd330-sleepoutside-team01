@@ -321,3 +321,50 @@ footer {
   font-size: var(--small-font);
   padding: 1em;
 }
+
+.checkout-form {
+  padding: 0.5rem;
+}
+
+.checkout-form fieldset {
+  margin: 1rem 0;
+  padding: 1rem;
+}
+
+.checkout-form label {
+  display: block;
+  margin-top: 0.5rem;
+}
+
+.checkout-form input {
+  width: 100%;
+  font-size: 1rem;
+  padding: 0.4rem;
+}
+
+.order__summary {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 0.5rem;
+}
+
+.alert {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.5em;
+  background-color: var(--primary-color);
+  border: 1px solid darkorange;
+}
+
+.alert > p {
+  margin: 0;
+}
+
+.alert > span {
+  cursor: pointer;
+  font-weight: bold;
+  padding: 0 0.5em;
+}
+
+
