@@ -1,7 +1,7 @@
 // Import the helpers: URL parameters, header/footer loading.
 import { getParam, loadHeaderFooter } from "./utils.mjs";
 // Import the class that fetches product data form the API
-import ProductData from "./ProductData.mjs";
+import ExternalServices from "./ExternalServices.mjs";
 // Import the class that displays one product.
 import ProductDetails from "./ProductDetails.mjs";
 // Import the badge updater so it can run once the header is on the page.
@@ -11,7 +11,7 @@ import { updateCartCount } from "./cart-count.js";
 loadHeaderFooter(updateCartCount);
 
 // Create a data source for the tent category
-const dataSource = new ProductData();
+const dataSource = new ExternalServices();
 
 // Get the product ID from the URL parameter (?product=...).
 const productId = getParam("product");
