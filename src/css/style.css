@@ -301,6 +301,43 @@ button {
   font-size: 0.9rem;
 }
 
+/* Categories */
+.categories {
+  margin: 3rem 0 3rem 0.5rem;
+}
+
+/* Space between the heading and the cards */
+.categories h2 {
+  margin-bottom: 1rem;
+}
+
+/* Four category cards in a responsive grid */
+.category-list {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 2rem 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 0.5rem;
+}
+
+.category-list a {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1rem;
+  gap: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  text-decoration: none;
+  color: inherit;
+}
+
+.category-list img {
+  width: 80px;
+  height: 80px;
+}
+
 @media screen and (min-width: 500px) {
   body {
     max-width: 1080px;
