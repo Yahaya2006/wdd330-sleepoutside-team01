@@ -271,41 +271,34 @@ button {
   grid-column: 3;
 }
 
-/* Categories */
-.categories {
-  margin: 3rem 0 3rem .5rem;
-}
-
-/* Space between the heading and the cards */
-.categories h2 {
-  margin-bottom: 1rem;
-}
-
-/* Four category cards in a responsive grid */
-.category-list {
-  list-style: none;
-  padding: 0;
-  margin: 0 0 2rem 0;       /* extra space below the cards, above the footer line */
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-  gap: .5rem;
-}
-
-.category-list a {
+/* Row that holds the - , number, and + */
+.cart-card__quantity {
   display: flex;
-  flex-direction: column;
   align-items: center;
-  padding: 1rem;
-  gap: .5rem;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  text-decoration: none;
-  color: inherit;
+  gap: 0.4rem;
+  /* small space between the parts */
 }
 
-.category-list img {
-  width: 80px;
-  height: 80px;
+/* The small + and - buttons */
+.qty-btn {
+  width: 1.6rem;
+  height: 1.4rem;
+  padding: 0;
+  /* removes the default button padding that makes it big */
+  font-size: 1.1rem;
+  line-height: 1;
+  cursor: pointer;
+  border: 1px solid #999;
+  border-radius: 4px;
+  background: #fff;
+  color: #303030;
+}
+
+/* The quantity number between the buttons */
+.qty-value {
+  min-width: 1rem;
+  text-align: center;
+  font-size: 0.9rem;
 }
 
 @media screen and (min-width: 500px) {
