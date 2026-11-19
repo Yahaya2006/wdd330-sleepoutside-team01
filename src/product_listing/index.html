@@ -1,28 +1,49 @@
+
 <!doctype html>
 <html lang="en">
-
-<head>
+  <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Sleep Outside | Product Listing</title>
+    <title>Sleep Outside | Products</title>
     <link rel="stylesheet" href="/css/style.css" />
     <script type="module" src="/js/product-listing.js"></script>
-</head>
+    <script type="module" src="/js/cart-count.js"></script>
+  </head>
 
-<body>
-    <header class="divider" id="main-header">
-        
+  <body>
+    <header class="divider">
+      <div class="logo">
+        <img src="/images/noun_Tent_2517.svg" alt="tent image for logo" />
+        <a href="/index.html">
+          Sleep<span class="highlight">Outside</span>
+        </a>
+      </div>
+
+      <div class="cart">
+        <a href="/cart/index.html">
+          <span>Cart</span>
+          <sup class="cart-count" data-cart-count aria-live="polite"></sup>
+        </a>
+      </div>
     </header>
-    <main class="divider">
 
+    <main class="divider">
         <section class="products">
-            <h2 id="listing-title">Top Products: </h2>
+            <h2 id="product-list-title">Top Products</h2>
+            <div class="sort-controls">
+              <label for="sort-products">Sort products by:</label>
+              <select id="sort-products">
+                <option value="default">Default order</option>
+                <option value="name-asc">Name: A to Z</option>
+                <option value="price-asc">Price: Low to High</option>
+                <option value="price-desc">Price: High to Low</option>
+              </select>
+            </div>
+
             <ul class="product-list"></ul>
         </section>
-    </main>
-    <footer id="main-footer">
-        
+    <footer>
+      &copy;2025 SleepOutside &copy; WDD 330 &copy; BYU-Idaho
     </footer>
-</body>
-
+  </body>
 </html>

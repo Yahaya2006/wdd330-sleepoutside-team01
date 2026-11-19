@@ -1,41 +1,26 @@
-// Import the helpers for the header, footer. and URL parameters.
-import { loadHeaderFooter, getParam } from "./utils.mjs";
-// Import the badge updater so it runs once the header is on the page.
-import { updateCartCount } from "./cart-count.js"
-// Import the class that builds the list of products cards.
 import ProductData from "./ProductData.mjs";
-// Import the class that builds the list of product cards.
 import ProductList from "./ProductList.mjs";
+import { getParam } from "./utils.mjs";
 
+// Get the category from the URL.
+const category = getParam("category") || "tents";
 
-// Load the header footer, then updated the cart badge.
-loadHeaderFooter(updateCartCount);
+// Update the page title with the selected category.
+const titleElement = document.querySelector("#product-list-title");
 
-// Turns a URL category like "sleeping-bags" into a readable name: "Sleeping Bags".
-function formatCategory(name) {
-    return name
-        .split("-")
-        .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-        .join(" ");        
-}
+const categoryName = category
+  .split("-")
+  .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+  .join(" ");
 
-// Read the category from the URL (e.g. ?category=backpacks).
-const category = getParam("category");
+titleElement.textContent = `Top Products: ${categoryName}`;
 
-// Show the category in the page heading. e.g. "Top Products Backpacks"
-// The "if" avoids an error when the URL has no ?category=value.
-if (category) {
-    document.querySelector("#listing-title").textContent =
-        `Top Products: ${formatCategory(category)}`;
-}
-
-
-// Create the data source (it talks to the API).
+// Create the API data source.
 const dataSource = new ProductData();
 
-// Find the <ul> on this page where the product cards will go.
+// Select the product list element.
 const listElement = document.querySelector(".product-list");
 
-// Create the product list for tents and display it.
+// Display the products.
 const productList = new ProductList(category, dataSource, listElement);
 productList.init();

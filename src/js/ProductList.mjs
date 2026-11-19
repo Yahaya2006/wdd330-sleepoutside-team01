@@ -1,12 +1,8 @@
-// Import the shared function that renders a list using a template.
 import { renderListWithTemplate } from "./utils.mjs";
 
-
-// Builds the HTML for one product card from a product object.
-// Each ${...} placeholder is filled with a field from tents.json.
 function productCardTemplate(product) {
   return `<li class="product-card">
-    <a href="/product_pages/?product=${product.Id}">
+    <a href="../product_pages/?product=${product.Id}">
       <img
         src="${product.Images.PrimaryMedium}"
         alt="${product.Name}"
@@ -18,37 +14,62 @@ function productCardTemplate(product) {
   </li>`;
 }
 
-
-// Creates a list of product cards for one category (e.g. "tents").
 export default class ProductList {
-    constructor(category, dataSource, listElement) {
-        // The product category, such as "tents".
-        this.category = category;
-        // The object that fetches the product data (a ProductData instance).
-        this.dataSource = dataSource;
-        // The HTML element the cards will be inserted into.
-        this.listElement = listElement;
-    }
+  constructor(category, dataSource, listElement) {
+    this.category = category;
+    this.dataSource = dataSource;
+    this.listElement = listElement;
+    this.products = [];
+  }
 
-
-    // Gets the product data, then displays it.
   async init() {
+    this.products = await this.dataSource.getData(this.category);
 
-    
-    // Wait for the data source to return the  fill list of products.
-    const list = await this.dataSource.getData(this.category);
-    
-    // TEMPORARY: show the category, how many products came back,
-    // and the first product that has no Images property (undefined if all have it).
-    // console.log(this.category, list.length, list.find((p) => !p.Images));
+    this.renderList(this.products);
 
-      // Render only the available products on the page.
-      this.renderList(list);
+    const sortSelect = document.querySelector("#sort-products");
+
+    if (sortSelect) {
+      sortSelect.addEventListener("change", () => {
+        this.sortProducts(sortSelect.value);
+      });
+    }
+  }
+
+  sortProducts(sortOption) {
+    const sortedProducts = [...this.products];
+
+    switch (sortOption) {
+      case "name-asc":
+        sortedProducts.sort((a, b) =>
+          a.Name.localeCompare(b.Name)
+        );
+        break;
+
+      case "price-asc":
+        sortedProducts.sort(
+          (a, b) => Number(a.FinalPrice) - Number(b.FinalPrice)
+        );
+        break;
+
+      case "price-desc":
+        sortedProducts.sort(
+          (a, b) => Number(b.FinalPrice) - Number(a.FinalPrice)
+        );
+        break;
+
+      default:
+        break;
     }
 
-    // Turns an array of products into HTML cards and adds them to the page.
-    renderList(list) {
-        // Use the shared utility to render the product cards.
-        renderListWithTemplate(productCardTemplate, this.listElement, list);
-    }
+    this.renderList(sortedProducts);
+  }
+
+  renderList(list) {
+    renderListWithTemplate(
+      productCardTemplate,
+      this.listElement,
+      list
+    );
+  }
 }
