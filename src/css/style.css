@@ -394,6 +394,90 @@ button {
   border-radius: 999px;
 }
 
+
+/* ===== Checkout form (native CSS nesting) ===== */
+#checkout-form {
+  max-width: 600px;
+  margin: 1rem auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+
+  /* Each group (name, address, payment, summary) is a card */
+  fieldset {
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    padding: 1rem;
+    display: grid;
+    gap: 0.5rem;
+
+    /* Wider screens: paired fields sit side by side */
+    @media (min-width: 600px) {
+      grid-template-columns: 1fr 1fr;
+      column-gap: 1rem;
+    }
+  }
+
+  legend {
+    padding: 0 0.5rem;
+    font-weight: bold;
+  }
+
+  label {
+    font-size: 0.9rem;
+  }
+
+  input {
+    width: 100%;
+    padding: 0.6rem;
+    border: 1px solid #999;
+    border-radius: 4px;
+    font-size: 1rem;
+    box-sizing: border-box;
+    /* keeps padding inside the 100% width */
+
+    &:valid {
+      border: 1px solid green;
+      background-color: #eaffea;
+    }
+
+    /* Red border only after the user typed something invalid */
+    &:focus {
+      border: 1.2px solid #c0392b;
+      background-color: #ffeaea;
+    }
+
+    &:focus {
+      outline: 1.2px solid #5c1212;
+    }
+  }
+
+  /* Order summary: label on the left, amount on the right */
+  .order-summary {
+    grid-template-columns: 1fr;
+
+    p {
+      display: flex;
+      justify-content: space-between;
+      margin: 0.25rem 0;
+    }
+  }
+
+  #checkoutSubmit {
+    padding: 0.8rem;
+    border: none;
+    border-radius: 4px;
+    background: var(--primary-color, #f0a868);
+    font-size: 1.1rem;
+    font-weight: bold;
+    cursor: pointer;
+
+    &:hover {
+      filter: brightness(0.92);
+    }
+  }
+}
+
 @media screen and (min-width: 500px) {
   body {
     max-width: 1080px;
