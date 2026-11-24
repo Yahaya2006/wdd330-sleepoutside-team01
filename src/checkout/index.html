@@ -42,7 +42,9 @@
             <input type="text" id="state" name="state" required />
         
             <label for="zip">Zip Code</label>
-            <input type="text" id="zip" name="zip" required pattern="[0-9]{5}" title="5-digit zip code" />
+            <!-- Accepts 83440, QW198, or QW-198 -->
+            <input type="text" id="zip" name="zip" required pattern="[0-9]{5}|[A-Za-z]{2}-?[0-9]{3}"
+              title="5 digits (83440) or 2 letters + 3 digits (QW198 or QW-198)" />
           </fieldset>
         
           <fieldset>
