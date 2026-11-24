@@ -15,15 +15,26 @@ function productCardTemplate(product) {
 }
 
 export default class ProductList {
-  constructor(category, dataSource, listElement) {
+  // isSearch = true means "category" is really a search term
+  constructor(category, dataSource, listElement, isSearch = false) {
     this.category = category;
     this.dataSource = dataSource;
     this.listElement = listElement;
+    this.isSearch = isSearch;
     this.products = [];
   }
 
   async init() {
-    this.products = await this.dataSource.getData(this.category);
+    // The request can fail or find nothing, so catch errors and show an empty list
+    try {
+      // Search by name/brand/category, or just load one category
+      this.products = this.isSearch
+        ? await this.dataSource.searchProducts(this.category)
+        : await this.dataSource.getData(this.category);
+    } catch (err) {
+      console.error("Could not load products:", err);
+      this.products = [];
+    }
 
     this.renderList(this.products);
 
@@ -66,10 +77,25 @@ export default class ProductList {
   }
 
   renderList(list) {
+    // Nothing found: show a message instead of a blank page
+    if (!list || list.length === 0) {
+      this.listElement.innerHTML = ""; // clear any old cards
+
+      // textContent shows the search term as plain text (safe)
+      const message = document.createElement("li");
+      message.className = "no-results";
+      message.textContent = `No products found for "${this.category}". Try another search.`;
+      this.listElement.appendChild(message);
+      return;
+    }
+
+    // clear = true removes the old cards first, so sorting doesn't add duplicates
     renderListWithTemplate(
       productCardTemplate,
       this.listElement,
-      list
+      list,
+      "afterbegin",
+      true
     );
   }
 }
