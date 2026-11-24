@@ -1,11 +1,11 @@
 import { getParam, loadHeaderFooter } from "./utils.mjs";
-import ProductData from "./ProductData.mjs";
+import ExternalServices from "./ExternalServices.mjs";
 // Import the class that displays one product.
 import ProductDetails from "./ProductDetails.mjs";
 import { updateCartCount } from "./cart-count.js";
 
 // Create a data source for the tent category.
-const dataSource = new ProductData("tents");
+const dataSource = new ExternalServices("tents");
 
 // Get the product ID from the URL parameter (?product=...).
 const productId = getParam("product");
