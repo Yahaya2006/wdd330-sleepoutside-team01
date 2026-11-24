@@ -29,4 +29,10 @@
     </svg>
     <sup class="cart-count" data-cart-count aria-live="polite"></sup>
   </a>
+
+  <!-- Search form: sends the term to the product listing page as ?search=... -->
+  <form id="search-form" action="/product_listing/index.html" method="get">
+    <input type="search" name="search" placeholder="Search products" aria-label="Search products" required />
+    <button type="submit">Search</button>
+  </form>
 </div>
