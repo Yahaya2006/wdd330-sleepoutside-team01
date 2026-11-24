@@ -1,5 +1,5 @@
 // CheckoutProcess.mjs
-import { getLocalStorage } from "./utils.mjs";
+import { getLocalStorage, setLocalStorage, alertMessage, removeAllAlerts } from "./utils.mjs";
 import ExternalServices from "./ExternalServices.mjs";
 
 const services = new ExternalServices();
@@ -15,7 +15,6 @@ function formDataToJSON(formElement) {
 }
 
 // Keeps only the fields the server wants for each cart item.
-// Note: the cart stores the quantity as "Quantity" (capital Q).
 function packageItems(items) {
   return items.map((item) => ({
     id: item.Id,
@@ -45,12 +44,10 @@ export default class CheckoutProcess {
 
   // Calculates and displays the subtotal
   calculateItemSubTotal() {
-    // Total number of items, counting quantities
     this.itemCount = this.list.reduce(
       (count, item) => count + (item.Quantity || 1),
       0,
     );
-    // Same math as ShoppingCart.calculateTotal: price * quantity
     this.itemTotal = this.list.reduce(
       (sum, item) => sum + item.FinalPrice * (item.Quantity || 1),
       0,
@@ -60,7 +57,6 @@ export default class CheckoutProcess {
   }
 
   // Calculates and displays tax, shipping and order total.
-  // Called after the user fills in the zip code.
   calculateOrderTotal() {
     this.tax = this.itemTotal * 0.06; // 6% sales tax
     // $10 for the first item + $2 for each additional item
@@ -78,16 +74,37 @@ export default class CheckoutProcess {
       `$${this.orderTotal.toFixed(2)}`;
   }
 
-  // Builds the order object and POSTs it to the server
+  // Builds the order, sends it, and handles success or failure
   async checkout(formElement) {
     const order = formDataToJSON(formElement);
 
     order.orderDate = new Date().toISOString();
     order.items = packageItems(this.list);
-    order.orderTotal = this.orderTotal.toFixed(2); // string, like the example
+    order.orderTotal = this.orderTotal.toFixed(2);
     order.shipping = this.shipping;
     order.tax = this.tax.toFixed(2);
 
-    return await services.checkout(order); // throws if the server rejects it
+    try {
+      // Code that can fail goes inside try
+      await services.checkout(order);
+
+      // Happy path: empty the cart, update the badge, go to the success page
+      setLocalStorage(this.key, []);
+      window.dispatchEvent(new Event("cartUpdated"));
+      window.location.href = "/checkout/success.html";
+    } catch (err) {
+      // Unhappy path: stay on the form and show what went wrong
+      removeAllAlerts(); // clear old messages first
+      const details = err.message;
+
+      if (details && typeof details === "object") {
+        // The server sends an object; show each message it contains
+        Object.values(details).forEach((msg) =>
+          alertMessage(typeof msg === "string" ? msg : JSON.stringify(msg)),
+        );
+      } else {
+        alertMessage(details || "Something went wrong. Please try again.");
+      }
+    }
   }
 }

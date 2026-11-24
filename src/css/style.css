@@ -478,6 +478,46 @@ button {
   }
 }
 
+/* =========== Alert message ============ */
+.alert {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  margin: 0.5rem 0;
+  padding: 0.75rem 1rem;
+  background: #ffeaea;
+  border: 1px solid #c0392b;
+  border-radius: 4px;
+  color: #7a1f14;
+
+  p {
+    margin: 0;
+  }
+
+  .alert-close {
+    cursor: pointer;
+    font-weight: bold;
+  }
+}
+
+.cta-success {
+  padding: 0.6rem;
+  border: none;
+  border-radius: 999px;
+  background: #79736e62;
+  color:#123d52;
+  font-size: .99rem;
+  font-weight: normal;
+  cursor: pointer;
+  text-decoration: none;
+
+  &:hover {
+    filter: brightness(0.92);
+    color: #000;
+  }
+}
+
 @media screen and (min-width: 500px) {
   body {
     max-width: 1080px;
