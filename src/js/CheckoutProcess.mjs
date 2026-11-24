@@ -84,6 +84,8 @@ export default class CheckoutProcess {
     order.shipping = this.shipping;
     order.tax = this.tax.toFixed(2);
 
+    console.log("Order being sent:", order);
+
     try {
       // Code that can fail goes inside try
       await services.checkout(order);

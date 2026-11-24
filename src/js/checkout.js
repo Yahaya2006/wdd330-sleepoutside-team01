@@ -1,8 +1,10 @@
-import { loadHeaderFooter, setLocalStorage } from "./utils.mjs";
+// checkout.js - page script for checkout/index.html
+import { loadHeaderFooter } from "./utils.mjs";
 
 // Import the badge updater so it can run once the header is on the page.
 import { updateCartCount } from "./cart-count.js";
 import CheckoutProcess from "./CheckoutProcess.mjs";
+import { validateForm, setupLiveValidation } from "./checkoutValidation.mjs";
 
 // Load the header and footer, then update the cart badge.
 loadHeaderFooter(updateCartCount);
@@ -10,32 +12,35 @@ loadHeaderFooter(updateCartCount);
 // "so-cart" must match the key your cart is saved under
 const CART_KEY = "so-cart";
 
+const form = document.querySelector("#checkout-form");
+const zip = document.querySelector("#zip");
+
+// Subtotal is calculated on page load
 const order = new CheckoutProcess(CART_KEY, ".order-summary");
-order.init(); // subtotal is calculated on page load
+order.init();
 
-// Tax, shipping and total are calculated once the zip code is filled in
-document
-  .querySelector("#zip")
-  .addEventListener("blur", order.calculateOrderTotal.bind(order));
+// Show validation messages live while the user types
+setupLiveValidation(form);
 
-// "submit" only fires when every required field is valid
-document
-  .querySelector("#checkout-form")
-  .addEventListener("submit", async (event) => {
-    event.preventDefault(); // stop the page reloading
+// When the user leaves the zip field:
+zip.addEventListener("blur", () => {
+  // 1. Tidy the format: QW198 -> QW-198 (skip this block if you dropped that rule)
+  const match = zip.value.match(/^([A-Za-z]{2})-?(\d{3})$/);
+  if (match) {
+    zip.value = `${match[1].toUpperCase()}-${match[2]}`;
+  }
 
-    order.calculateOrderTotal(); // make sure totals are current
+  // 2. Calculate tax, shipping and order total
+  order.calculateOrderTotal();
+});
 
-    try {
-      const response = await order.checkout(event.target);
-      console.log("Order response:", response);
+// Runs when the user clicks Checkout
+form.addEventListener("submit", (event) => {
+  event.preventDefault(); // stop the page reloading
 
-      setLocalStorage(CART_KEY, []);                    // empty the cart
-      window.dispatchEvent(new Event("cartUpdated"));   // update the header badge
-      alert("Order placed successfully!");
-      window.location.href = "/";                       // back to the home page
-    } catch (err) {
-      console.error("Checkout failed:", err);
-      alert("Checkout failed. Please check your details and try again.");
-    }
-  });
+  // Stop here if any field is invalid (the user sees which one)
+  if (!validateForm(form)) return;
+
+  order.calculateOrderTotal(); // make sure totals are current
+  order.checkout(form);        // success redirect and error alerts happen inside
+});
