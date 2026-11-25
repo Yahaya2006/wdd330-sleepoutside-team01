@@ -1,4 +1,3 @@
-
 import { loadHeaderFooter } from "./utils.mjs";
 import ShoppingCart from "./ShoppingCart.mjs";
 import { updateCartCount } from "./cart-count.js";
@@ -13,4 +12,3 @@ loadHeaderFooter(updateCartCount);
 // Create the shopping cart and display its contents.
 const cart = new ShoppingCart("so-cart", listElement, totalElement);
 cart.init();
-
