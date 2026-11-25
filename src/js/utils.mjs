@@ -121,3 +121,29 @@ export function removeAllAlerts() {
   alerts.forEach((alert) => document.querySelector("main").removeChild(alert));
 }
 
+// Shows a dismissible message at the top of <main>.
+// scroll = true jumps back to the top so the user sees it (useful on long forms).
+export function alertMessage(message, scroll = true) {
+  const alert = document.createElement("div");
+  alert.classList.add("alert");
+  alert.innerHTML = `<p>${message}</p><span class="alert-close">X</span>`;
+
+  // Clicking the X removes this alert
+  alert.addEventListener("click", (e) => {
+    if (e.target.classList.contains("alert-close")) {
+      alert.remove();
+    }
+  });
+
+  // Insert at the top of the main element
+  document.querySelector("main").prepend(alert);
+
+  if (scroll) {
+    window.scrollTo(0, 0);
+  }
+}
+
+// Removes every alert currently on the page.
+export function removeAllAlerts() {
+  document.querySelectorAll(".alert").forEach((alert) => alert.remove());
+}

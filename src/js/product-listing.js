@@ -5,37 +5,50 @@ import { updateCartCount } from "./cart-count.js"
 // Import the class that builds the list of products cards.
 import ExternalServices from "./ExternalServices.mjs";
 // Import the class that builds the list of product cards.
+// product-listing.js
+import ExternalServices from "./ExternalServices.mjs";
 import ProductList from "./ProductList.mjs";
+import { getParam, loadHeaderFooter } from "./utils.mjs";
+import { updateCartCount } from "./cart-count.js";
 
-
-// Load the header footer, then updated the cart badge.
+// Load the shared header and footer, then update the cart badge.
 loadHeaderFooter(updateCartCount);
 
-// Turns a URL category like "sleeping-bags" into a readable name: "Sleeping Bags".
-function formatCategory(name) {
-    return name
-        .split("-")
-        .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-        .join(" ");        
+// Read both possible URL parameters:
+//   ?category=tents      (from the category links)
+//   ?search=sleeping bag (from the navbar search form)
+const searchTerm = getParam("search");
+const category = getParam("category") || "tents";
+
+// Update the page title.
+const titleElement = document.querySelector("#product-list-title");
+
+if (searchTerm) {
+  // Search results title
+  titleElement.textContent = `Search results for: ${searchTerm}`;
+} else {
+  // Category title, e.g. "sleeping-bags" -> "Sleeping Bags"
+  const categoryName = category
+    .split("-")
+    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(" ");
+  titleElement.textContent = `Top Products: ${categoryName}`;
 }
 
-// Read the category from the URL (e.g. ?category=backpacks).
-const category = getParam("category");
-
-// Show the category in the page heading. e.g. "Top Products Backpacks"
-// The "if" avoids an error when the URL has no ?category=value.
-if (category) {
-    document.querySelector("#listing-title").textContent =
-        `Top Products: ${formatCategory(category)}`;
-}
-
+// Create the API data source.
+const dataSource = new ExternalServices();
 
 // Create the data source (it talks to the API).
 const dataSource = new ExternalServices();
 
 // Find the <ul> on this page where the product cards will go.
+// Select the product list element.
 const listElement = document.querySelector(".product-list");
 
-// Create the product list for tents and display it.
-const productList = new ProductList(category, dataSource, listElement);
+// Search: use the search term and turn on search mode (4th argument).
+// Otherwise show the category as before.
+const productList = searchTerm
+  ? new ProductList(searchTerm, dataSource, listElement, true)
+  : new ProductList(category, dataSource, listElement);
+
 productList.init();

@@ -1,3 +1,6 @@
+<!-- Add a box on the home page that would allow a user 
+to sign up to receive a Newsletter. 
+line 48 - 64 -->
 <!doctype html>
 <html lang="en">
   <head>
@@ -32,15 +35,48 @@
       <section class="categories">
         <h2>Shop by Category</h2>
         <ul class="category-list">
-          <li><a href="/product_listing/index.html?category=tents"><img src="/images/tents.svg" alt=""><span>Tents</span></a>
+          <li>
+            <a href="/product_listing/index.html?category=tents"
+              ><img src="/images/tents.svg" alt="" /><span>Tents</span></a
+            >
           </li>
-          <li><a href="/product_listing/index.html?category=backpacks"><img src="/images/backpacks.svg"
-                alt=""><span>Backpacks</span></a></li>
-          <li><a href="/product_listing/index.html?category=sleeping-bags"><img src="/images/sleeping-bags.svg"
-                alt=""><span>Sleeping Bags</span></a></li>
-          <li><a href="/product_listing/index.html?category=hammocks"><img src="/images/hammocks.svg"
-                alt=""><span>Hammocks</span></a></li>
+          <li>
+            <a href="/product_listing/index.html?category=backpacks"
+              ><img src="/images/backpacks.svg" alt="" /><span
+                >Backpacks</span
+              ></a
+            >
+          </li>
+          <li>
+            <a href="/product_listing/index.html?category=sleeping-bags"
+              ><img src="/images/sleeping-bags.svg" alt="" /><span
+                >Sleeping Bags</span
+              ></a
+            >
+          </li>
+          <li>
+            <a href="/product_listing/index.html?category=hammocks"
+              ><img src="/images/hammocks.svg" alt="" /><span>Hammocks</span></a
+            >
+          </li>
         </ul>
+      </section>
+
+      <section class="newsletter" aria-labelledby="newsletter-title">
+        <h2 id="newsletter-title">Get the Sleep Outside Newsletter</h2>
+        <form class="newsletter-form" action="/newsletter" method="post">
+          <label for="newsletter-email">Email address</label>
+          <div class="newsletter-formInput">
+            <input
+              id="newsletter-email"
+              name="email"
+              type="email"
+              placeholder="you@example.com"
+              required
+            />
+            <button type="submit">Subscribe</button>
+          </div>
+        </form>
       </section>
     </main>
     <footer id="main-footer"></footer>

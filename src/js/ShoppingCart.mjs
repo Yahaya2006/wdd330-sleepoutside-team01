@@ -10,14 +10,14 @@ function cartItemTemplate(item) {
     return `<li class="cart-card divider">
     <a href="#" class="cart-card__image">
         <img
-            src="${item.Image}"
+            src="${item.Images?.PrimaryMedium || item.Image || ""}"
             alt="${item.Name}"
         />
     </a>
     <a href="#">
         <h2 class="card__name">${item.Name}</h2>
     </a>
-    <p class="cart-card__color">${item.Colors[0].ColorName}</p>
+    <p class="cart-card__color">${item.Colors?.[0]?.ColorName || "N/A"}</p>
     <!-- Quantity controls: data-id tells us which product to change -->
     <div class="cart-card__quantity">
     <button class="qty-btn" data-action="decrease" data-id="${item.Id}" aria-label="Decrease quantity">&minus;</button>

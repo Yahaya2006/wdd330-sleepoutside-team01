@@ -1,28 +1,35 @@
 <!doctype html>
 <html lang="en">
-
-<head>
+  <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Sleep Outside | Product Listing</title>
+    <title>Sleep Outside | Products</title>
     <link rel="stylesheet" href="/css/style.css" />
     <script type="module" src="/js/product-listing.js"></script>
-</head>
+    <!-- <script type="module" src="/js/cart-count.js"></script> -->
+  </head>
 
-<body>
-    <header class="divider" id="main-header">
-        
-    </header>
+  <body>
+    <!-- Filled in by loadHeaderFooter() from partials/header.html -->
+    <header class="divider" id="main-header"></header>
+
     <main class="divider">
+      <section class="products">
+        <h2 id="product-list-title">Top Products</h2>
+        <div class="sort-controls">
+          <label for="sort-products">Sort products by:</label>
+          <select id="sort-products">
+            <option value="default">Default order</option>
+            <option value="name-asc">Name: A to Z</option>
+            <option value="price-asc">Price: Low to High</option>
+            <option value="price-desc">Price: High to Low</option>
+          </select>
+        </div>
 
-        <section class="products">
-            <h2 id="listing-title">Top Products: </h2>
-            <ul class="product-list"></ul>
-        </section>
+        <ul class="product-list"></ul>
+      </section>
     </main>
-    <footer id="main-footer">
-        
-    </footer>
-</body>
-
+    <!-- Filled in by loadHeaderFooter() from partials/footer.html -->
+    <footer id="main-footer"></footer>
+  </body>
 </html>

@@ -1,16 +1,14 @@
-// Import the helper that reads data from the browser's localStorage.
 import { loadHeaderFooter } from "./utils.mjs";
 import ShoppingCart from "./ShoppingCart.mjs";
-// Import the badge updater so it can run once the header is on the page.
 import { updateCartCount } from "./cart-count.js";
 
-// Find the element on the page that the cart will fill in.
+// Find the elements where cart items and total will be displayed.
 const listElement = document.querySelector(".product-list");
 const totalElement = document.getElementById("cart-total-container");
 
 // Load the header and footer, then update the cart badge.
 loadHeaderFooter(updateCartCount);
 
-// Create the cart and display it, the same way ProductList is started.
+// Create the shopping cart and display its contents.
 const cart = new ShoppingCart("so-cart", listElement, totalElement);
 cart.init();
