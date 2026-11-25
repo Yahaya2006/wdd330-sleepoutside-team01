@@ -1,3 +1,10 @@
+// Import the helpers for the header, footer. and URL parameters.
+import { loadHeaderFooter, getParam } from "./utils.mjs";
+// Import the badge updater so it runs once the header is on the page.
+import { updateCartCount } from "./cart-count.js"
+// Import the class that builds the list of products cards.
+import ExternalServices from "./ExternalServices.mjs";
+// Import the class that builds the list of product cards.
 // product-listing.js
 import ExternalServices from "./ExternalServices.mjs";
 import ProductList from "./ProductList.mjs";
@@ -31,6 +38,10 @@ if (searchTerm) {
 // Create the API data source.
 const dataSource = new ExternalServices();
 
+// Create the data source (it talks to the API).
+const dataSource = new ExternalServices();
+
+// Find the <ul> on this page where the product cards will go.
 // Select the product list element.
 const listElement = document.querySelector(".product-list");
 

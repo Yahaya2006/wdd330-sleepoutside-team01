@@ -1,3 +1,11 @@
+const baseURL = import.meta.env.VITE_SERVER_URL;
+
+async function convertToJson(res) {
+  const jsonResponse = await res.json();
+  if (res.ok) {
+    return jsonResponse;
+  } else {
+    throw { name: "servicesError", message: jsonResponse };
 // ExternalServices.mjs (renamed from ProductData.mjs)
 // Handles every request to the backend server.
 const baseURL = import.meta.env.VITE_SERVER_URL;
@@ -17,6 +25,10 @@ async function convertToJson(res) {
 }
 
 export default class ExternalServices {
+  constructor() {}
+
+  async getData(category) {
+    const response = await fetch(`${baseURL}products/search/${category}`);
   // GET: all products in a category
   async getData(category) {
     // encodeURIComponent keeps the URL valid if the text has spaces
@@ -66,6 +78,17 @@ export default class ExternalServices {
     return data.Result;
   }
 
+  async checkout(payload) {
+    const options = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(payload),
+    };
+    return await fetch(`${baseURL}checkout/`, options).then(convertToJson);
+  }
+}
   // POST: send the finished order object to the server
   async checkout(order) {
     const options = {

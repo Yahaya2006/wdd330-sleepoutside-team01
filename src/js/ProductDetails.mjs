@@ -1,4 +1,4 @@
-import { getLocalStorage, setLocalStorage } from "./utils.mjs";
+import { alertMessage, getLocalStorage, setLocalStorage } from "./utils.mjs";
 
 export default class ProductDetails {
   constructor(productId, dataSource) {
@@ -41,6 +41,29 @@ export default class ProductDetails {
       cart = [cart];
     }
 
+    addProductToCart(product) {
+      // Retrieves existing products; Creates an empty array if no cart exists
+      let cart = getLocalStorage("so-cart") || [];
+      // Make sure cart is an array
+      if (!Array.isArray(cart)) {
+        cart = [cart];
+      }
+    
+      // Check whether the product already exists
+      const existingProduct = cart.find((item) => item.Id === product.Id);
+    
+      if (existingProduct) {
+        // Increase its quantity
+        existingProduct.Quantity = (existingProduct.Quantity || 1) + 1;
+      } else {
+        // Adds the new product to the array
+        cart.push({ ...product, Quantity: 1 });
+      }
+    
+      // Saves the updated array
+      setLocalStorage("so-cart", cart);
+      window.dispatchEvent(new Event("cartUpdated"));
+      alertMessage(`${this.product.NameWithoutBrand} added to cart!`);
     // Check whether the product already exists
     const existingProduct = cart.find((item) => item.Id === product.Id);
 

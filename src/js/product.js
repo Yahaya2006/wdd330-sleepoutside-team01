@@ -1,4 +1,5 @@
 import { getParam, loadHeaderFooter } from "./utils.mjs";
+// Import the class that fetches product data form the API
 import ExternalServices from "./ExternalServices.mjs";
 // Import the class that displays one product.
 import ProductDetails from "./ProductDetails.mjs";
@@ -6,6 +7,8 @@ import { updateCartCount } from "./cart-count.js";
 import { addBreadcrumbs } from "./breadcrumbs.js";
 addBreadcrumbs();
 
+// Create a data source for the tent category
+const dataSource = new ExternalServices();
 // Create a data source for the tent category.
 const dataSource = new ExternalServices("tents");
 
