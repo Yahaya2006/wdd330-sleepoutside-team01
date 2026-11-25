@@ -42,5 +42,5 @@ form.addEventListener("submit", (event) => {
   if (!validateForm(form)) return;
 
   order.calculateOrderTotal(); // make sure totals are current
-  order.checkout(form);        // success redirect and error alerts happen inside
+  order.checkout(form); // success redirect and error alerts happen inside
 });

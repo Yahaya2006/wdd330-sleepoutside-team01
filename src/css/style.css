@@ -129,7 +129,7 @@ button {
 }
 
 .cart svg {
-  width: 25px;  
+  width: 25px;
 }
 
 .cart-count {
@@ -350,8 +350,6 @@ button {
   margin-bottom: 0.5rem;
 }
 
-
-
 .newsletter-form {
   max-width: 520px;
   margin: 0 auto;
@@ -380,9 +378,7 @@ button {
 .newsletter-form button {
   margin: 0;
   padding: 0.5em 1em;
-
 }
-
 
 /*================ Checkout Button =========== */
 .checkout-btn {
@@ -393,7 +389,6 @@ button {
   text-decoration: none;
   border-radius: 999px;
 }
-
 
 /* ===== Checkout form (native CSS nesting) ===== */
 #checkout-form {
@@ -506,8 +501,8 @@ button {
   border: none;
   border-radius: 999px;
   background: #79736e62;
-  color:#123d52;
-  font-size: .99rem;
+  color: #123d52;
+  font-size: 0.99rem;
   font-weight: normal;
   cursor: pointer;
   text-decoration: none;
@@ -517,7 +512,6 @@ button {
     color: #000;
   }
 }
-
 
 /* ===== Navbar search form ===== */
 #search-form {
@@ -529,7 +523,7 @@ button {
     border: 1px solid #999;
     border-radius: 10px;
     font-size: 1rem;
-    min-width: 0;   /* lets the box shrink on small screens */
+    min-width: 0; /* lets the box shrink on small screens */
 
     &:focus {
       outline: 2px solid #493737;
