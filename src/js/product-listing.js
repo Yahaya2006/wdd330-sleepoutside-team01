@@ -1,4 +1,4 @@
-import ProductData from "./ProductData.mjs";
+import ExternalServices from "./ExternalServices.mjs";
 import ProductList from "./ProductList.mjs";
 import { getParam } from "./utils.mjs";
 
@@ -16,7 +16,7 @@ const categoryName = category
 titleElement.textContent = `Top Products: ${categoryName}`;
 
 // Create the API data source.
-const dataSource = new ProductData();
+const dataSource = new ExternalServices();
 
 // Select the product list element.
 const listElement = document.querySelector(".product-list");
