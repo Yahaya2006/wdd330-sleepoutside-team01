@@ -100,3 +100,26 @@ export const loadHeaderFooter = async (headerCallback) => {
   renderWithTemplate(footerTemplate, footerElement);
 
 };
+
+export function alertMessage(message, scroll = true) {
+  const alert = document.createElement("div");
+  alert.classList.add("alert");
+
+  alert.innerHTML = `
+    <p>${message}</p>
+    <button class="alert-close" aria-label="Close alert">X</button>
+  `;
+
+  alert.addEventListener("click", (e) => {
+    if (e.target.tagName === "BUTTON") {
+      alert.remove();
+    }
+  });
+
+  const main = document.querySelector("main");
+  main.prepend(alert);
+
+  if (scroll) {
+    window.scrollTo(0, 0);
+  }
+}

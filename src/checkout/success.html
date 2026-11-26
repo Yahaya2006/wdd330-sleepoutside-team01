@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Order Successful | SleepOutside</title>
+    <link rel="stylesheet" href="../css/style.css" />
+  </head>
+  <body>
+    <header class="divider" id="main-header"></header>
+
+    <main class="divider">
+      <section class="success-page">
+        <h1>Order Successful!</h1>
+        <p>Thank you for your order.</p>
+        <p>Your order has been successfully submitted.</p>
+        <a href="../index.html">Continue Shopping</a>
+      </section>
+    </main>
+
+    <footer id="main-footer"></footer>
+
+    <script type="module">
+      import { loadHeaderFooter } from "../js/utils.mjs";
+      import { updateCartCount } from "../js/cart-count.js";
+
+      loadHeaderFooter(updateCartCount);
+    </script>
+  </body>
+</html>

@@ -38,6 +38,13 @@ async function checkoutFormHandler(event) {
 
   const cartItems = getLocalStorage("so-cart") || [];
 
+  const isValid = form.checkValidity();
+  
+  if (!isValid) {
+    form.reportValidity();
+    return;
+  }
+
   if (cartItems.length === 0) {
     message.textContent = "Your cart is empty.";
     return;
@@ -51,12 +58,7 @@ async function checkoutFormHandler(event) {
   order.shipping = checkout.shipping;
   order.items = packageItems(cartItems);
 
-  try {
-    await externalServices.checkout(order);
-    message.textContent = "Order submitted successfully!";
-  } catch {
-    message.textContent = "Unable to submit your order. Please try again.";
-  }
+  await checkout.checkout(order, externalServices);
 }
 
 form.addEventListener("submit", checkoutFormHandler);

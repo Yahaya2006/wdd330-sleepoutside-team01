@@ -414,3 +414,47 @@ footer {
   max-width: 600px;
   margin: 1.5rem auto;
 }
+
+/* Alert messages */
+.alert {
+  padding: 1rem;
+  margin: 1rem 0;
+  background-color: #d9534f;
+  color: white;
+  border-radius: 5px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.alert p {
+  margin: 0;
+}
+
+.alert-close {
+  background: transparent;
+  border: none;
+  color: white;
+  font-size: 1.2rem;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.checkout-button-container {
+  text-align: right;
+  margin: 1.5rem 0;
+}
+
+.checkout-button {
+  display: inline-block;
+  padding: 0.8rem 1.5rem;
+  background-color: #f97316;
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+  border-radius: 5px;
+}
+
+.checkout-button:hover {
+  background-color: #c65a0b;
+}
