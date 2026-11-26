@@ -11,3 +11,4 @@ loadHeaderFooter(updateCartCount);
 // Load customizable alerts on the home page if any exist in alerts.json.
 const alert = new Alert();
 alert.init();
+
