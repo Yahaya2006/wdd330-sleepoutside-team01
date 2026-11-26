@@ -1,4 +1,4 @@
-import { getLocalStorage, setLocalStorage } from "./utils.mjs";
+import { getLocalStorage, setLocalStorage, alertMessage } from "./utils.mjs";
 
 export default class ProductDetails {
   constructor(productId, dataSource) {
@@ -55,6 +55,31 @@ export default class ProductDetails {
     // Saves the updated array
     setLocalStorage("so-cart", cart);
     window.dispatchEvent(new Event("cartUpdated"));
+
+    // Confirm to the user that the item was added
+    alertMessage(`${product.Name} was added to your cart.`);
+  }
+
+  // Builds the price block. If the product is on sale, it shows the
+  // original price crossed out, the sale price, and a badge with the savings.
+  priceTemplate() {
+    const original = Number(this.product.SuggestedRetailPrice);
+    const sale = Number(this.product.FinalPrice);
+
+    // No discount: show the normal price only
+    if (!(original > sale)) {
+      return `<p class="product-card__price">$${sale.toFixed(2)}</p>`;
+    }
+
+    const savings = original - sale;
+    const percent = Math.round((savings / original) * 100);
+
+    return `
+        <div class="product-detail__price">
+            <p class="product-detail__original">$${original.toFixed(2)}</p>
+            <p class="product-card__price">$${sale.toFixed(2)}</p>
+            <span class="discount-badge">Save $${savings.toFixed(2)} (${percent}% off)</span>
+        </div>`;
   }
 
   // Dynamically displays the selected product's details by 
@@ -64,7 +89,7 @@ export default class ProductDetails {
         <h3>${this.product.Brand.Name}</h3>
         <h2 class="divider">${this.product.NameWithoutBrand}</h2>
         <img class="divider" src="${this.product.Images?.PrimaryLarge || this.product.Image || ""}" alt="${this.product.NameWithoutBrand}">
-        <p class="product-card__price">$${this.product.FinalPrice}</p>
+        ${this.priceTemplate()}
         <p class="product__color">${this.product.Colors[0].ColorName}</p>
         <p class="product__description">${this.product.DescriptionHtmlSimple}</p>
         <div class="product-detail__add">
