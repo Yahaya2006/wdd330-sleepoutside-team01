@@ -611,3 +611,68 @@ footer {
   font-size: var(--small-font);
   padding: 1em;
 }
+
+/* ===== Registration Giveaway Modal ===== */
+.register-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem;
+  background: rgba(0, 0, 0, 0.65);
+
+  .register-modal__content {
+    position: relative;
+    width: 100%;
+    max-width: 450px;
+    padding: 2rem;
+    background: #fff;
+    border-radius: 12px;
+    text-align: center;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+  }
+
+  h2 {
+    margin-top: 0;
+    color: #123d52;
+  }
+
+  p {
+    line-height: 1.6;
+  }
+
+  .register-modal__close {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.75rem;
+    border: none;
+    background: transparent;
+    font-size: 1.8rem;
+    cursor: pointer;
+  }
+
+  .register-modal__button {
+    display: inline-block;
+    margin-top: 1rem;
+    padding: 0.8rem 1.5rem;
+    background: #4b590c;
+    color: #fff;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: bold;
+    cursor: pointer;
+
+    &:hover {
+      background: #354008;
+    }
+  }
+
+  .register-modal__later {
+    display: block;
+    margin-top: 1rem;
+    color: #555;
+    cursor: pointer;
+  }
+}
