@@ -55,6 +55,22 @@ export default class ProductDetails {
     // Saves the updated array
     setLocalStorage("so-cart", cart);
     window.dispatchEvent(new Event("cartUpdated"));
+    this.animateCartIcon();
+  }
+
+  animateCartIcon() {
+    const cartIcon = document.querySelector(".cart");
+    if (!cartIcon) return;
+    cartIcon.classList.remove("cart--animate");
+    void cartIcon.offsetWidth;
+    cartIcon.classList.add("cart--animate");
+    cartIcon.addEventListener(
+      "animationend",
+      () => {
+        cartIcon.classList.remove("cart--animate");
+      },
+      { once: true },
+    );
   }
 
   // Dynamically displays the selected product's details by 
